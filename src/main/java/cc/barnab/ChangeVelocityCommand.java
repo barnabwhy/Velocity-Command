@@ -11,6 +11,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
@@ -25,9 +26,15 @@ public class ChangeVelocityCommand {
 
         PosArgument posArg = context.getArgument("velocity", PosArgument.class);
 
+        String rotationContext = "entity";
+        try {
+            rotationContext = context.getArgument("rotationContext", String.class);
+        } catch(Exception ignored) {}
+
         for (Entity entity : entities) {
             Vec3d oldVec = entity.getVelocity();
-            Vec3d newVec = posArg.getPos(source.withPosition(oldVec).withRotation(entity.getRotationClient()));
+            Vec2f rot = rotationContext.equals("command") ? context.getSource().getRotation() : entity.getRotationClient();
+            Vec3d newVec = posArg.getPos(source.withPosition(oldVec).withRotation(rot));
 
             if (entity instanceof ServerPlayerEntity player) {
                 player.networkHandler.sendPacket(new ExplosionS2CPacket(new Vec3d(0, -10000000, 0), Optional.ofNullable(newVec.subtract(oldVec)), ParticleTypes.EFFECT, SoundEvents.BLOCK_NOTE_BLOCK_BANJO));
