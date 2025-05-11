@@ -3,15 +3,13 @@
 	"id": "velocity-command",
 	"version": "${version}",
 	"name": "Velocity Command",
-	"description": "This is an example description! Tell everyone what your mod is about!",
-	"authors": [
-		"Me!"
-	],
+	"description": "Server-side command for changing entity velocities.",
+	"authors": ["Barnaby"],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/barnabwhy/Velocity-Command",
+		"issues": "https://github.com/barnabwhy/Velocity-Command/issues"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/velocity-command/icon.png",
 	"environment": "*",
 	"entrypoints": {
@@ -25,8 +23,5 @@
 		"minecraft": "~1.21.4",
 		"java": ">=21",
 		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }
